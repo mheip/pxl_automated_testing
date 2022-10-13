@@ -1,0 +1,4 @@
+name: pxl_automated_testing
+recipe: laravel
+config:
+  webroot: app/public
