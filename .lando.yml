@@ -1,4 +1,21 @@
 name: pxl_automated_testing
 recipe: laravel
+env_file:
+  - .env
 config:
-  webroot: app/public
+  xdebug: true
+  webroot: laravel/public
+tooling:
+  phpstan-analyse:
+    service: appserver
+    cmd: "/app/vendor/bin/phpstan analyse --memory-limit=2G"
+  composer:
+    service: appserver
+    dir: /app/laravel
+  setup:
+    service: appserver
+    dir: /app/laravel
+    cmd:
+      - composer install --prefer-dist
+      - php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - php artisan key:generate --ansi
