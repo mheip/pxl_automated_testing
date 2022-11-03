@@ -3,8 +3,19 @@ recipe: laravel
 env_file:
   - .env
 config:
+  php: '8.1'
   xdebug: true
   webroot: laravel/public
+services:
+  appserver:
+    run:
+      - echo 'Run after build'
+      - echo 'Install composer'
+      - cd /app/laravel && composer install --prefer-dist
+      - echo 'Copy .env file'
+      - cd /app/laravel && php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - echo 'Generate key for .env'
+      - cd /app/laravel && php artisan key:generate --ansi
 tooling:
   phpstan-analyse:
     service: appserver
@@ -12,10 +23,3 @@ tooling:
   composer:
     service: appserver
     dir: /app/laravel
-  setup:
-    service: appserver
-    dir: /app/laravel
-    cmd:
-      - composer install --prefer-dist
-      - php -r "file_exists('.env') || copy('.env.example', '.env');"
-      - php artisan key:generate --ansi
