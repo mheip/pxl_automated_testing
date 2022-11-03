@@ -20,6 +20,7 @@
         "mreduar/laravel-phpcs": "^1.8",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
+        "phpro/grumphp": "^1.13",
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ignition": "^1.0"
     },
@@ -61,7 +62,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpro/grumphp": true
         }
     },
     "minimum-stability": "dev",

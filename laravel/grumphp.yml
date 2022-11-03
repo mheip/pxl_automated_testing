@@ -1,0 +1,7 @@
+grumphp:
+    tasks:
+      phpstan:
+        triggered_by: [
+          'php'
+        ]
+      phpcs: null
