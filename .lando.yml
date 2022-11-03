@@ -19,7 +19,22 @@ services:
 tooling:
   phpstan-analyse:
     service: appserver
-    cmd: "/app/vendor/bin/phpstan analyse --memory-limit=2G"
+    dir: /app/laravel
+    cmd: "./vendor/bin/phpstan analyse --memory-limit=2G"
+  phpstan-baseline:
+    service: appserver
+    dir: /app/laravel
+    cmd: "./vendor/bin/phpstan analyse --memory-limit=1G --generate-baseline"
   composer:
     service: appserver
     dir: /app/laravel
+  xdebug-on:
+    service: appserver
+    description: Enable xdebug for apache.
+    cmd: "docker-php-ext-enable xdebug && /etc/init.d/apache2 reload"
+    user: root
+  xdebug-off:
+    service: appserver
+    description: Disable xdebug for apache.
+    cmd: "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
+    user: root
