@@ -25,6 +25,14 @@ tooling:
     service: appserver
     dir: /app/laravel
     cmd: "./vendor/bin/phpstan analyse --memory-limit=1G --generate-baseline"
+  phpcs:
+    service: appserver
+    dir: /app/laravel
+    cmd: ./vendor/bin/phpcs
+  phpcs-fix:
+    service: appserver
+    dir: /app/laravel
+    cmd: ./vendor/bin/phpcbf
   composer:
     service: appserver
     dir: /app/laravel
