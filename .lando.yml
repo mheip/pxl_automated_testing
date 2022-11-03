@@ -16,6 +16,8 @@ services:
       - cd /app/laravel && php -r "file_exists('.env') || copy('.env.example', '.env');"
       - echo 'Generate key for .env'
       - cd /app/laravel && php artisan key:generate --ansi
+      - echo 'Setup GrumPHP'
+      - cd /app/laravel && ./vendor/bin/grumphp git:init
 tooling:
   phpstan-analyse:
     service: appserver
