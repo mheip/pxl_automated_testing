@@ -37,6 +37,10 @@ tooling:
     service: appserver
     dir: /app/laravel
     cmd: ./vendor/bin/grumphp
+  grumphp-php:
+    service: appserver
+    dir: /app/laravel
+    cmd: php
   composer:
     service: appserver
     dir: /app/laravel
