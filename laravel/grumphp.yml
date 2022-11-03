@@ -1,6 +1,7 @@
 grumphp:
   git_hook_variables:
     EXEC_GRUMPHP_COMMAND: 'lando grumphp-php'
+  ascii: ~
   tasks:
     phpstan:
       triggered_by: [
