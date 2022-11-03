@@ -19,6 +19,10 @@ services:
       - echo 'Setup GrumPHP'
       - cd /app/laravel && ./vendor/bin/grumphp git:init
 tooling:
+  test:
+    service: appserver
+    dir: /app/laravel
+    cmd: ./vendor/bin/phpunit
   phpstan-analyse:
     service: appserver
     dir: /app/laravel
