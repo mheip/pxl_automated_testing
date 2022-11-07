@@ -6,7 +6,10 @@ grumphp:
     succeeded: ~
   tasks:
     phpstan:
+      use_grumphp_paths: false
+      memory_limit: 2G
       triggered_by: [
         'php'
       ]
     phpcs: null
+    phpunit: null

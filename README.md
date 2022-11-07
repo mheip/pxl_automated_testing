@@ -92,6 +92,13 @@ Achterliggend voert deze het volgende commando uit: \
 `/app/laravel/vendor/bin/phpcbf --filter=GitModified`
 
 ## PHP Unit - Testing framework
-
+PHP Unit is een testing framework waarmee we code gaan runnen en controle uitvoeren op wat er terug komt.
+Eventuele routes opvragen, zien als daar de juiste tekst op staat, een functie die met bepaalde input de juiste output terug geeft.
 
 ### Tooling commands
+```
+lando test <path-to-file>
+```
+We voeren lando test uit en geven daaraan het path naar de test mee. Deze test gaat zijn uitgevoerd worden.
+Achterliggend voert deze het volgende commando uit: \
+`/app/laravel/vendor/bin/phpunit`
