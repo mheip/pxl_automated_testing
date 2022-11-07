@@ -12,9 +12,9 @@ Dit wil zeggen dat we in onze .lando.yml file bepaalde tooling commands hebben t
 
 Read more: https://docs.lando.dev/config/tooling.html
 
-## GrumPHP
+## GrumPHP - A PHP code-quality tool
 GrumPHP is een tool die instaat voor code quality binnen het project maar van zichzelf geen tests bevat.
-Het gaat echter allerlei verschillende tests zoals PPHStan, PHPCS, PHPUnit, enzovoort bundelen en uitvoeren bij commits met behulp van git-hooks.
+Het gaat echter allerlei verschillende tests zoals PPHStan, PHP_CS, PHPUnit, enzovoort bundelen en uitvoeren bij commits met behulp van git-hooks.
 
 Deze gaat er ook voor zorgen dat we tests conditioneel kunnen uitvoeren, zoals PHPStan enkel uitvoeren als we een PHP-file aanpassen,
 of yamllint bij aanpassingen in .yml files.
@@ -22,5 +22,45 @@ of yamllint bij aanpassingen in .yml files.
 Achteraf toevoegen van tests word ook eenvoudiger aangezien we hiervoor dan geen git-hook moeten aanpassen.
 
 Read more: https://github.com/phpro/grumphp
+### Tooling command
+```
+lando grumphp run
+```
+Grumphp kan uitgevoerd worden met bovenstaande commando en gaat voor ons de gedefinieerde tests in `grumphp.xml` uitvoeren. Dat is PHP_CS en PHPStan.
+Andere Grumphp commands kunnen uitgevoerd worden door run te vervangen met een ander commando van grumphp: `lando grumphp <command>` 
 
-## PHPStan
+Achterliggend voert deze het volgende command uit: `/app/laravel/vendor/bin/grumphp`
+
+## PHPStan - PHP Static Analysis Tool
+Deze tool gaat een statische analyse doen van onze code en zonder het effectief runnen van de code fouten opsporen.
+Als ergens een vergelijking gemaakt word tussen een **string** en een **integer** gaat PHPStan een error tonen omdat dit soort vergelijkingen onverwachte resultaten gaat geven.
+
+Binnen PHPStan is er ook zoiets als een `baseline` deze bevat al alle bestaande fouten zodat als we PHPStan later toevoegen aan een project we toch een positief resultaat krijgen.
+Als een fout gemaakt is en toegevoegd word aan de baseline dan word deze genegeerd bij de volgende controle, tenzij dat deze opgelost is, dan word dit wel als fout aanschouwt.
+Op die manier kan je PHPStan toepassen op oude code en nieuwe code kwaliteit garanderen en gaandeweg oude code opschonen.
+
+Omdat we gebruik maken van Laravel zijn er veel Magic methods en hierdoor zijn we genoodzaakt om een wrapper rond PHPStan te gebruiken, namelijk Larastan.
+We spreken hierdoor niet meer van een volledig statische controle maar voor onze les is dit niet noodzakelijk hier verder op in te gaan.
+
+Read more: https://github.com/phpstan/phpstan \
+Read more about Larastan: https://github.com/nunomaduro/larastan
+
+### Tooling commands
+```
+lando phpstan-analyse
+```
+Deze gaat een analyse uitvoeren van onze PHP-code en het aantal fouten terug geven. \
+Achterliggend voert deze het volgende commando uit: \
+`/app/laravel/vendor/bin/phpstan analyse --memory-limit=2G`
+
+```
+lando phpstan-baseline
+```
+Met dit commando kunnen we de baseline file `phpstan-baseline.neon` updaten met nieuwe fouten of bestaande fouten verwijderen.
+Achterliggend voert deze het volgende commando uit: \
+`/app/laravel/vendor/bin/phpstan analyse --memory-limit=2G --generate-baseline`
+
+## PHP_CS - Tokenizes PHP files and detects violations of a defined set of coding standards.
+
+
+## PHP Unit - Testing framework
