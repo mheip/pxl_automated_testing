@@ -10,6 +10,11 @@ Deze gaat uw Docker containers opzetten, Laravel downloaden met composer en ook 
 Om tests uit te voeren maken we gebruik van de lando tooling mogelijkheden.
 Dit wil zeggen dat we in onze .lando.yml file bepaalde tooling commands hebben toegevoegd die achterliggend commando's in de docker container gaan uitvoeren.
 
+Deze worden altijd vooraf gegaan door lando, gevolgt door het commando en eventuele opties
+```
+lando <command>
+```
+
 Read more: https://docs.lando.dev/config/tooling.html
 
 ## GrumPHP - A PHP code-quality tool
@@ -29,7 +34,8 @@ lando grumphp run
 Grumphp kan uitgevoerd worden met bovenstaande commando en gaat voor ons de gedefinieerde tests in `grumphp.xml` uitvoeren. Dat is PHP_CS en PHPStan.
 Andere Grumphp commands kunnen uitgevoerd worden door run te vervangen met een ander commando van grumphp: `lando grumphp <command>` 
 
-Achterliggend voert deze het volgende command uit: `/app/laravel/vendor/bin/grumphp`
+Achterliggend voert deze het volgende command uit: \
+`/app/laravel/vendor/bin/grumphp`
 
 ## PHPStan - PHP Static Analysis Tool
 Deze tool gaat een statische analyse doen van onze code en zonder het effectief runnen van de code fouten opsporen.
@@ -56,11 +62,36 @@ Achterliggend voert deze het volgende commando uit: \
 ```
 lando phpstan-baseline
 ```
-Met dit commando kunnen we de baseline file `phpstan-baseline.neon` updaten met nieuwe fouten of bestaande fouten verwijderen.
+Met dit commando kunnen we de baseline file `phpstan-baseline.neon` updaten met nieuwe fouten of bestaande fouten verwijderen. \
 Achterliggend voert deze het volgende commando uit: \
 `/app/laravel/vendor/bin/phpstan analyse --memory-limit=2G --generate-baseline`
 
 ## PHP_CS - Tokenizes PHP files and detects violations of a defined set of coding standards.
+Elk framework binnen PHP en andere talen maakt gebruik van bepaalde coding standards, 4 spaces of 2 tabs bijvoorbeeld.
+PHP_CodeSniffer gaat hierop controles uitvoeren aan de hand van een voorgedefinieerde regel set in `phpcs.xml`.
+Bij PHP_CS word ook nog een extra tool opgeleverd, namelijk `PHP Code Beautifier and Fixer` deze gaat proberen PHP_CS fouten automatisch goed te zetten. 
 
+Aangezien we hier met laravel werken hebben we gebruik gemaakt van een al bestaande regelset voor laravel, namelijk `mreduar/laravel-phpcs`.
+
+Read more: https://github.com/squizlabs/PHP_CodeSniffer \
+Read more laravel phpcs: https://github.com/mreduar/laravel-phpcs
+
+### Tooling commands
+```
+lando phpcs
+```
+Deze gaat de coding standards controleren en foutmeldingen geven als er fouten zijn gemaakt. \
+Achterliggend voert deze het volgende commando uit: \
+`/app/laravel/vendor/bin/phpcs --filter=GitModified`
+
+```
+lando phpcs-fix
+```
+Deze gaat de coding standard automatisch proberen juist te zetten zodat we minder werk hebben.
+Achterliggend voert deze het volgende commando uit: \
+`/app/laravel/vendor/bin/phpcbf --filter=GitModified`
 
 ## PHP Unit - Testing framework
+
+
+### Tooling commands
