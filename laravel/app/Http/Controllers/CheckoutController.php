@@ -14,16 +14,22 @@ class CheckoutController extends Controller
      */
     public function buildCheckout(): View
     {
+
+        $globalDiscount = true;
+        $globalDiscountPrecentage = 0.05;
+
         $products = [
             [
                 'name' => 'Monitor',
                 'unitPrice' => '300',
                 'amount' => '2',
+                'discount' => '0.12'
             ],
             [
                 'name' => 'GPU',
                 'unitPrice' => '1300',
                 'amount' => '1',
+                'discount' => '0.20'
             ],
             [
                 'name' => 'RAM 8GB',
@@ -44,6 +50,7 @@ class CheckoutController extends Controller
                 'name' => 'Voeding 1500W',
                 'unitPrice' => '120',
                 'amount' => '1',
+                'discount' => '0.5'
             ],
             [
                 'name' => 'CPU',
@@ -51,6 +58,10 @@ class CheckoutController extends Controller
                 'amount' => '1',
             ],
         ];
+
+        if (count($products) < 5) {
+            $globalDiscount = false;
+        }
 
         $totalPrice = '0';
         $totalPriceInclBTW = '0';
@@ -60,13 +71,26 @@ class CheckoutController extends Controller
             $totalPrice += $totalProductPrice;
         }
 
-        $btwAmount = $totalPrice * (21 / 100);
+        if ($globalDiscount) {
+            $totalPriceFull = $totalPrice;
+            $btwAmount = ($totalPrice * (1 - $globalDiscountPrecentage )) * (21 / 100);
+            $globalDiscountAmount = $totalPrice - ($totalPrice * (1 - $globalDiscountPrecentage));
+            $totalPrice *= (1 - $globalDiscountPrecentage);
+        } else {
+            $totalPriceFull = $totalPrice;
+            $btwAmount = $totalPrice * (21 / 100);
+            $globalDiscountAmount = 0;
+        }
+
         $totalPriceInclBTW = $btwAmount + $totalPrice;
 
         return view('checkout', [
             'products' => $products,
+            'totalPriceFull' => $totalPriceFull,
             'totalPrice' => $totalPrice,
             'btwAmount' => $btwAmount,
+            'globalDiscountPrecentage' => $globalDiscountPrecentage * 100,
+            'globalDiscountAmount' => $globalDiscountAmount,
             'totalPriceInclBTW' => $totalPriceInclBTW,
         ]);
     }
