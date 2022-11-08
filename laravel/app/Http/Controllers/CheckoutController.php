@@ -16,7 +16,7 @@ class CheckoutController extends Controller
     public function buildCheckout(int $productId): View
     {
         return view('checkout', [
-            'product_id' => $productId,
+            'productId' => $productId,
         ]);
     }
 }

@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome', ['hello' => 'world']);
 });
 
-Route::get('/checkout/{product_id}', [
+Route::get('/checkout/{productId}', [
     CheckoutController::class, 'buildCheckout',
 ]);
