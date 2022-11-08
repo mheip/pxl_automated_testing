@@ -68,6 +68,14 @@ class CheckoutController extends Controller
         foreach ($products as $key => $product) {
             $totalProductPrice = $product['unitPrice'] * $product['amount'];
             $products[$key]['totalPrice'] = $totalProductPrice;
+
+            if (isset($product['discount'])) {
+                $products[$key]['discountAmount'] = $totalProductPrice * $product['discount'];
+                $totalProductPrice = $totalProductPrice - $products[$key]['discountAmount'];
+                $products[$key]['discount'] = ($product['discount'] * 100) .'%';
+            }
+
+            $products[$key]['totalPrice'] = $totalProductPrice;
             $totalPrice += $totalProductPrice;
         }
 

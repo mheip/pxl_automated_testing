@@ -5,13 +5,19 @@ Hello world
             Name
         </td>
         <td>
-            Eenheid prijs
+            Unit price
         </td>
         <td>
-            Aantal
+            Ammount
         </td>
         <td>
-            Totaal prijs
+            Discount percentage
+        </td>
+        <td>
+            Discount amount
+        </td>
+        <td>
+            Total price
         </td>
     </tr>
     @foreach( $products as $product)
@@ -26,32 +32,42 @@ Hello world
                 {{ $product['amount'] }}
             </td>
             <td>
+                @if(isset($product['discount']))
+                    {{ $product['discount'] }}
+                @endif
+            </td>
+            <td>
+                @if(isset($product['discountAmount']))
+                    {{ $product['discountAmount'] }}
+                @endif
+            </td>
+            <td>
                 {{ $product['totalPrice'] }}
             </td>
         </tr>
     @endforeach
     <tr>
-        <td colspan="3">Price: </td>
+        <td colspan="3">Price:</td>
         <td>{{ $totalPriceFull }}</td>
     </tr>
     <tr>
-        <td colspan="3">Discount percentage: </td>
+        <td colspan="3">Discount percentage:</td>
         <td>{{ $globalDiscountPercentage }}%</td>
     </tr>
     <tr>
-        <td colspan="3">Discount amount: </td>
+        <td colspan="3">Discount amount:</td>
         <td>{{ $globalDiscountAmount }}</td>
     </tr>
     <tr>
-        <td colspan="3">Discounted Price: </td>
+        <td colspan="3">Discounted Price:</td>
         <td>{{ $totalPrice }}</td>
     </tr>
     <tr>
-        <td colspan="3">BTW Amount: </td>
+        <td colspan="3">BTW Amount:</td>
         <td>{{ $btwAmount }}</td>
     </tr>
     <tr>
-        <td colspan="3">Price incl: </td>
+        <td colspan="3">Price incl:</td>
         <td>{{ $totalPriceInclBTW }}</td>
     </tr>
 </table>
