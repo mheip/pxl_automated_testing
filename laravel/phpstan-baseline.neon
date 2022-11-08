@@ -1,6 +1,31 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Binary operation \"\\*\" between 75\\|120\\|150\\|240\\|275\\|300\\|375\\|480\\|550\\|600\\|750\\|1100\\|1200\\|1300\\|1500\\|2600\\|5200 and non\\-falsy\\-string results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/CheckoutController.php
+
+		-
+			message: "#^Binary operation \"\\*\" between non\\-falsy\\-string and 100 results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/CheckoutController.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between 7 and 5 is always false\\.$#"
+			count: 1
+			path: app/Http/Controllers/CheckoutController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/Http/Controllers/CheckoutController.php
+
+		-
+			message: "#^Offset 'discountAmount' does not exist on array\\{amount\\: '1'\\|'2'\\|'4', discount\\?\\: non\\-falsy\\-string, discountAmount\\?\\: mixed, name\\: 'CPU'\\|'GPU'\\|'Moederbord'\\|'Monitor'\\|'NVMe 2GB'\\|'RAM 8GB'\\|'Voeding 1500W', totalPrice\\?\\: float\\|int, unitPrice\\: '120'\\|'1300'\\|'275'\\|'300'\\|'375'\\|'75'\\}\\.$#"
+			count: 1
+			path: app/Http/Controllers/CheckoutController.php
+
+		-
 			message: "#^Undefined variable\\: \\$this$#"
 			count: 1
 			path: routes/console.php

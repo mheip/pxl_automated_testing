@@ -1,6 +1,6 @@
 grumphp:
   git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: 'lando grumphp-php'
+    EXEC_GRUMPHP_COMMAND: 'lando xdebug-off && lando grumphp-php'
   ascii:
     failed: ~
     succeeded: ~

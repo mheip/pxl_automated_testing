@@ -8,6 +8,10 @@ config:
   webroot: laravel/public
 services:
   appserver:
+    overrides:
+      environment:
+        PHP_IDE_CONFIG: "serverName=appserver"
+        XDEBUG_SESSION_START: lando
     run:
       - echo 'Run after build'
       - echo 'Install composer'
@@ -34,11 +38,11 @@ tooling:
   phpcs:
     service: appserver
     dir: /app/laravel
-    cmd: ./vendor/bin/phpcs --filter=GitModified
+    cmd: ./vendor/bin/phpcs
   phpcs-fix:
     service: appserver
     dir: /app/laravel
-    cmd: ./vendor/bin/phpcbf --filter=GitModified
+    cmd: ./vendor/bin/phpcbf
   grumphp:
     service: appserver
     dir: /app/laravel
@@ -58,5 +62,5 @@ tooling:
   xdebug-off:
     service: appserver
     description: Disable xdebug for apache.
-    cmd: "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
+    cmd: "rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
     user: root
