@@ -7,7 +7,7 @@ lando start
 Deze gaat uw Docker containers opzetten, Laravel downloaden met composer en ook in één keer de App Key van Laravel genereren. \
 Een snelle test om te zien dat alle tools die we gaan gebruik is het uitvoeren van volgende commando: 
 ```
-lando grumphp run
+lando grumphp run 
 ```
 
 ## Lando tooling
