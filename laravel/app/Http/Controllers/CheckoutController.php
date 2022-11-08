@@ -16,7 +16,7 @@ class CheckoutController extends Controller
     {
 
         $globalDiscount = true;
-        $globalDiscountPrecentage = 0.05;
+        $globalDiscountPercentage = 0.05;
 
         $products = [
             [
@@ -73,9 +73,9 @@ class CheckoutController extends Controller
 
         if ($globalDiscount) {
             $totalPriceFull = $totalPrice;
-            $btwAmount = ($totalPrice * (1 - $globalDiscountPrecentage )) * (21 / 100);
-            $globalDiscountAmount = $totalPrice - ($totalPrice * (1 - $globalDiscountPrecentage));
-            $totalPrice *= (1 - $globalDiscountPrecentage);
+            $btwAmount = ($totalPrice * (1 - $globalDiscountPercentage )) * (21 / 100);
+            $globalDiscountAmount = $totalPrice - ($totalPrice * (1 - $globalDiscountPercentage));
+            $totalPrice *= (1 - $globalDiscountPercentage);
         } else {
             $totalPriceFull = $totalPrice;
             $btwAmount = $totalPrice * (21 / 100);
@@ -89,7 +89,7 @@ class CheckoutController extends Controller
             'totalPriceFull' => $totalPriceFull,
             'totalPrice' => $totalPrice,
             'btwAmount' => $btwAmount,
-            'globalDiscountPrecentage' => $globalDiscountPrecentage * 100,
+            'globalDiscountPercentage' => $globalDiscountPercentage * 100,
             'globalDiscountAmount' => $globalDiscountAmount,
             'totalPriceInclBTW' => $totalPriceInclBTW,
         ]);

@@ -36,7 +36,7 @@ Hello world
     </tr>
     <tr>
         <td colspan="3">Discount percentage: </td>
-        <td>{{ $globalDiscountPrecentage }}%</td>
+        <td>{{ $globalDiscountPercentage }}%</td>
     </tr>
     <tr>
         <td colspan="3">Discount amount: </td>
