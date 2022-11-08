@@ -34,11 +34,11 @@ tooling:
   phpcs:
     service: appserver
     dir: /app/laravel
-    cmd: ./vendor/bin/phpcs --filter=GitModified
+    cmd: ./vendor/bin/phpcs
   phpcs-fix:
     service: appserver
     dir: /app/laravel
-    cmd: ./vendor/bin/phpcbf --filter=GitModified
+    cmd: ./vendor/bin/phpcbf
   grumphp:
     service: appserver
     dir: /app/laravel

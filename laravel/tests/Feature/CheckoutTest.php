@@ -13,10 +13,7 @@ class CheckoutTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response()
     {
-        $response = $this->get('/checkout/123');
+        $response = $this->get('/checkout');
         $response->assertStatus(200);
-
-        $response->assertSee('Hello world');
-        $response->assertSee('123');
     }
 }
