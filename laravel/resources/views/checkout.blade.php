@@ -19,29 +19,30 @@
             Total price
         </td>
     </tr>
+
     @foreach( $products as $product)
         <tr>
             <td>
-                {{ $product['name'] }}
+                {{ $product->getProduct()->getName() }}
             </td>
             <td>
-                {{ $product['unitPrice'] }}
+                {{ $product->getProduct()->getUnitPrice() }}
             </td>
             <td>
-                {{ $product['amount'] }}
+                {{ $product->getAmount() }}
             </td>
+
+            @if($product->hasDiscount())
+                <td>
+                    {{ $product->getDiscount() }}
+                </td>
+                <td>
+                    {{ $product->getDiscountAmount() }}
+                </td>
+            @endif
+
             <td>
-                @if(isset($product['discount']))
-                    {{ $product['discount'] }}
-                @endif
-            </td>
-            <td>
-                @if(isset($product['discountAmount']))
-                    {{ $product['discountAmount'] }}
-                @endif
-            </td>
-            <td>
-                {{ $product['totalPrice'] }}
+                {{ $product->getTotalPriceWithDiscount() }}
             </td>
         </tr>
     @endforeach

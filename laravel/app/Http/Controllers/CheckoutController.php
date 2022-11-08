@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Checkout;
+use App\Models\CheckoutProduct;
+use App\Models\Product;
 use Illuminate\Contracts\View\View;
 
 class CheckoutController extends Controller
@@ -13,91 +16,47 @@ class CheckoutController extends Controller
     public function buildCheckout(): View
     {
 
-        $globalDiscount = true;
-        $globalDiscountPercentage = '0.05';
-
         $products = [
-            [
-                'name' => 'Monitor',
-                'unitPrice' => '300',
-                'amount' => '2',
-                'discount' => '0.12',
-            ],
-            [
-                'name' => 'GPU',
-                'unitPrice' => '1300',
-                'amount' => '1',
-                'discount' => '0.20',
-            ],
-            [
-                'name' => 'RAM 8GB',
-                'unitPrice' => '75',
-                'amount' => '4',
-            ],
-            [
-                'name' => 'NVMe 2GB',
-                'unitPrice' => '120',
-                'amount' => '2',
-            ],
-            [
-                'name' => 'Moederbord',
-                'unitPrice' => '275',
-                'amount' => '1',
-            ],
-            [
-                'name' => 'Voeding 1500W',
-                'unitPrice' => '120',
-                'amount' => '1',
-                'discount' => '0.5',
-            ],
-            [
-                'name' => 'CPU',
-                'unitPrice' => '375',
-                'amount' => '1',
-            ],
+            new CheckoutProduct(
+                new Product('Monitor', 300),
+                2, 0.12
+            ),
+            new CheckoutProduct(
+                new Product('GPU', 1300),
+                1, 0.20
+            ),
+            new CheckoutProduct(
+                new Product('RAM 8GB', 75),
+                4
+            ),
+            new CheckoutProduct(
+                new Product('NVMe 2GB', 120),
+                2
+            ),
+            new CheckoutProduct(
+                new Product('Moederbord', 275),
+                1
+            ),
+            new CheckoutProduct(
+                new Product('Voeding 1500W', 120),
+                1, 0.50
+            ),
+            new CheckoutProduct(
+                new Product('CPU', 375),
+                1
+            ),
         ];
 
-        if (count($products) < 5) {
-            $globalDiscount = false;
-        }
-
-        $totalPrice = '0';
-        $totalPriceInclBTW = '0';
-        foreach ($products as $key => $product) {
-            $totalProductPrice = $product['unitPrice'] * $product['amount'];
-            $products[$key]['totalPrice'] = $totalProductPrice;
-
-            if (isset($product['discount'])) {
-                $products[$key]['discountAmount'] = $totalProductPrice * $product['discount'];
-                $totalProductPrice = $totalProductPrice - $products[$key]['discountAmount'];
-                $products[$key]['discount'] = ($product['discount'] * 100) . '%';
-            }
-
-            $products[$key]['totalPrice'] = $totalProductPrice;
-            $totalPrice += $totalProductPrice;
-        }
-
-        if ($globalDiscount) {
-            $totalPriceFull = $totalPrice;
-            $btwAmount = ($totalPrice * (1 - $globalDiscountPercentage)) * (21 / 100);
-            $globalDiscountAmount = $totalPrice - ($totalPrice * (1 - $globalDiscountPercentage));
-            $totalPrice *= (1 - $globalDiscountPercentage);
-        } else {
-            $totalPriceFull = $totalPrice;
-            $btwAmount = $totalPrice * (21 / 100);
-            $globalDiscountAmount = 0;
-        }
-
-        $totalPriceInclBTW = $btwAmount + $totalPrice;
+        $checkout = new Checkout($products);
 
         return view('checkout', [
-            'products' => $products,
-            'totalPriceFull' => $totalPriceFull,
-            'totalPrice' => $totalPrice,
-            'btwAmount' => $btwAmount,
-            'globalDiscountPercentage' => $globalDiscountPercentage * 100,
-            'globalDiscountAmount' => $globalDiscountAmount,
-            'totalPriceInclBTW' => $totalPriceInclBTW,
+            'products' => $checkout->getProducts(),
+            'totalPriceFull' => $checkout->calculatePriceWithoutGlobalDiscount(),
+            'totalPrice' => $checkout->calculatePriceWithoutVat(),
+            'btwAmount' => $checkout->calculateVat(),
+            'globalDiscountPercentage' => $checkout->getGlobalDiscountPercentage(),
+            'globalDiscountAmount' => $checkout->calculateDiscount(),
+            'totalPriceInclBTW' => $checkout->calculatePriceWithVat(),
         ]);
     }
 }
