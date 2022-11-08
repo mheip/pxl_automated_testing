@@ -1,4 +1,3 @@
-Hello world
 <table border="1" align="center" style="text-align: center;">
     <tr>
         <td>

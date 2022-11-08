@@ -4,19 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 
-class CheckoutController extends Controller
-{
+class CheckoutController extends Controller{
 
     /**
      * Generate a checkout.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function buildCheckout(): View
-    {
+    public function buildCheckout(): View{
 
         $globalDiscount = true;
-        $globalDiscountPercentage = 0.05;
+        $globalDiscountPercentage = "0.05";
 
         $products = [
             [
@@ -65,8 +61,8 @@ class CheckoutController extends Controller
 
         $totalPrice = '0';
         $totalPriceInclBTW = '0';
-        foreach ($products as $key => $product) {
-            $totalProductPrice = $product['unitPrice'] * $product['amount'];
+        foreach ($products as $key=> $product) {
+            $totalProductPrice = $product['unitPrice'] *$product['amount'];
             $products[$key]['totalPrice'] = $totalProductPrice;
 
             if (isset($product['discount'])) {
@@ -94,10 +90,10 @@ class CheckoutController extends Controller
 
         return view('checkout', [
             'products' => $products,
-            'totalPriceFull' => $totalPriceFull,
+            'totalPriceFull' =>$totalPriceFull,
             'totalPrice' => $totalPrice,
             'btwAmount' => $btwAmount,
-            'globalDiscountPercentage' => $globalDiscountPercentage * 100,
+            'globalDiscountPercentage'=> $globalDiscountPercentage * 100,
             'globalDiscountAmount' => $globalDiscountAmount,
             'totalPriceInclBTW' => $totalPriceInclBTW,
         ]);
