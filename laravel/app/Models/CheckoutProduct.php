@@ -20,8 +20,6 @@ class CheckoutProduct
 
     /**
      * Gets the amount of items requested.
-     *
-     * @return int
      */
     public function getAmount(): int
     {
@@ -30,8 +28,6 @@ class CheckoutProduct
 
     /**
      * Gets the discount percentage.
-     *
-     * @return float
      */
     public function getDiscount(): float
     {
@@ -40,8 +36,6 @@ class CheckoutProduct
 
     /**
      * Gets the product model.
-     *
-     * @return \App\Models\Product
      */
     public function getProduct(): Product
     {
@@ -50,8 +44,6 @@ class CheckoutProduct
 
     /**
      * Does this checkout product have a discount?
-     *
-     * @return bool
      */
     public function hasDiscount(): bool
     {
@@ -60,8 +52,6 @@ class CheckoutProduct
 
     /**
      * Returns the discount percentage.
-     *
-     * @return float
      */
     public function getDiscountAmount(): float
     {

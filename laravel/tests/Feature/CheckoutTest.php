@@ -12,10 +12,8 @@ class CheckoutTest extends TestCase
 
     /**
      * A basic test example.
-     *
-     * @return void
      */
-    public function test_the_application_returns_a_successful_response()
+    public function test_the_application_returns_a_successful_response(): void
     {
         $response = $this->get('/checkout');
         $response->assertStatus(200);
@@ -23,10 +21,8 @@ class CheckoutTest extends TestCase
 
     /**
      * Tests the total price of the products.
-     *
-     * @return void
      */
-    public function testTotalPrice()
+    public function testTotalPrice(): void
     {
         $response = $this->get('/checkout');
         $response->assertSee('2818');
@@ -34,10 +30,8 @@ class CheckoutTest extends TestCase
 
     /**
      * Test the discount percentage.
-     *
-     * @return void
      */
-    public function testDiscountPercentage()
+    public function testDiscountPercentage(): void
     {
         $response = $this->get('/checkout');
         $response->assertSee('5%');
@@ -45,10 +39,8 @@ class CheckoutTest extends TestCase
 
     /**
      * Tests the discount amount.
-     *
-     * @return void
      */
-    public function testDiscountAmount()
+    public function testDiscountAmount(): void
     {
         $response = $this->get('/checkout');
         $response->assertSee('140.9');
@@ -56,10 +48,8 @@ class CheckoutTest extends TestCase
 
     /**
      * Tests the total price without vat.
-     *
-     * @return void
      */
-    public function testPriceWithoutVat()
+    public function testPriceWithoutVat(): void
     {
         $response = $this->get('/checkout');
         $response->assertSee('2677.1');
@@ -67,10 +57,8 @@ class CheckoutTest extends TestCase
 
     /**
      * Tests the amount of VAT to be added to the price.
-     *
-     * @return void
      */
-    public function testVatAmount()
+    public function testVatAmount(): void
     {
         $response = $this->get('/checkout');
         $response->assertSee('562.191');
@@ -78,10 +66,8 @@ class CheckoutTest extends TestCase
 
     /**
      * Tests the price with VAT.
-     *
-     * @return void
      */
-    public function testPriceWithVat()
+    public function testPriceWithVat(): void
     {
         $response = $this->get('/checkout');
         $response->assertSee('3239.291');

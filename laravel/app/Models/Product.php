@@ -19,8 +19,6 @@ class Product
 
     /**
      * Gets the name of the product.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -29,8 +27,6 @@ class Product
 
     /**
      * Gets the unit price.
-     *
-     * @return float
      */
     public function getUnitPrice(): float
     {

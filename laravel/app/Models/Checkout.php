@@ -37,7 +37,7 @@ class Checkout
      * @return float
      *   The total price, including VAT.
      */
-    public function calculatePriceWithVat()
+    public function calculatePriceWithVat(): float
     {
         return $this->calculatePriceWithoutVat() + $this->calculateVat();
     }
@@ -55,18 +55,14 @@ class Checkout
 
     /**
      * Returns the global discount percentage.
-     *
-     * @return float
      */
-    public function getGlobalDiscountPercentage()
+    public function getGlobalDiscountPercentage(): float
     {
         return $this->globalDiscount;
     }
 
     /**
      * Calculates the discount amount.
-     *
-     * @return float
      */
     public function calculateDiscount(): float
     {
@@ -90,10 +86,8 @@ class Checkout
 
     /**
      * Calculates the total price of all products.
-     *
-     * @return float
      */
-    public function calculatePriceWithoutGlobalDiscount()
+    public function calculatePriceWithoutGlobalDiscount(): float
     {
         // Loop over all products and calculate the total price.
         $totalPrice = 0;
@@ -107,8 +101,6 @@ class Checkout
 
     /**
      * The global discount is applied when we have 5 or more different products.
-     *
-     * @return bool
      */
     protected function applyGlobalDiscount(): bool
     {
