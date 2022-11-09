@@ -31,16 +31,16 @@
             <td>
                 {{ $product->getAmount() }}
             </td>
-
-            @if($product->hasDiscount())
-                <td>
-                    {{ $product->getDiscount() }}
-                </td>
-                <td>
+            <td>
+                @if($product->hasDiscount())
+                    {{ $product->getDisplayDiscount() }}
+                @endif
+            </td>
+            <td>
+                @if($product->hasDiscount())
                     {{ $product->getDiscountAmount() }}
-                </td>
-            @endif
-
+                @endif
+            </td>
             <td>
                 {{ $product->getTotalPriceWithDiscount() }}
             </td>
@@ -52,11 +52,11 @@
     </tr>
     @if($globalDiscountAmount > 0)
         <tr>
-            <td colspan="3">Discount percentage:</td>
-            <td>{{ $globalDiscountPercentage }}%</td>
+            <td colspan="3">Global discount percentage:</td>
+            <td>{{ $globalDiscountPercentage }}</td>
         </tr>
         <tr>
-            <td colspan="3">Discount amount:</td>
+            <td colspan="3">Global discount amount:</td>
             <td>{{ $globalDiscountAmount }}</td>
         </tr>
         <tr>
