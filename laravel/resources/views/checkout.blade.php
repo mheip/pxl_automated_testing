@@ -50,18 +50,20 @@
         <td colspan="3">Price:</td>
         <td>{{ $totalPriceFull }}</td>
     </tr>
-    <tr>
-        <td colspan="3">Discount percentage:</td>
-        <td>{{ $globalDiscountPercentage }}%</td>
-    </tr>
-    <tr>
-        <td colspan="3">Discount amount:</td>
-        <td>{{ $globalDiscountAmount }}</td>
-    </tr>
-    <tr>
-        <td colspan="3">Discounted Price:</td>
-        <td>{{ $totalPrice }}</td>
-    </tr>
+    @if($globalDiscountAmount > 0)
+        <tr>
+            <td colspan="3">Discount percentage:</td>
+            <td>{{ $globalDiscountPercentage }}%</td>
+        </tr>
+        <tr>
+            <td colspan="3">Discount amount:</td>
+            <td>{{ $globalDiscountAmount }}</td>
+        </tr>
+        <tr>
+            <td colspan="3">Discounted Price:</td>
+            <td>{{ $totalPrice }}</td>
+        </tr>
+    @endif
     <tr>
         <td colspan="3">BTW Amount:</td>
         <td>{{ $btwAmount }}</td>
