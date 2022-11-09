@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset>
+<ruleset name="LaravelPxlAutomatedTesting">
     <arg name="basepath" value="."/>
 
     <file>./app</file>
@@ -8,5 +8,14 @@
     <file>./routes</file>
     <file>./tests</file>
 
+    <exclude-pattern>*/Http/Middleware/*</exclude-pattern>
+    <exclude-pattern>*/Providers/*</exclude-pattern>
+
     <rule ref="./vendor/mreduar/laravel-phpcs/phpcs.xml"/>
+    <config name="installed_paths" value="../../slevomat/coding-standard"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+    </rule>
+    <!-- other sniffs to include -->
 </ruleset>

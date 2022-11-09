@@ -7,7 +7,7 @@
             Unit price
         </td>
         <td>
-            Ammount
+            Amount
         </td>
         <td>
             Discount percentage
