@@ -49,14 +49,14 @@ class CheckoutTest extends TestCase
     /**
      * Test out view with a discount.
      */
-    public function testCheckoutDiscountView(): void
+    public function testCheckoutWithDiscountView(): void
     {
         $view = $this->view('checkout', [
             'products' => $this->checkoutWithDiscount->getProducts(),
             'totalPriceFull' => $this->checkoutWithDiscount->calculatePriceWithoutGlobalDiscount(),
             'totalPrice' => $this->checkoutWithDiscount->calculatePriceWithoutVat(),
             'btwAmount' => $this->checkoutWithDiscount->calculateVat(),
-            'globalDiscountPercentage' => $this->checkoutWithDiscount->getGlobalDiscountPercentage(),
+            'globalDiscountPercentage' => $this->checkoutWithDiscount->getDisplayGlobalDiscountPercentage(),
             'globalDiscountAmount' => $this->checkoutWithDiscount->calculateDiscount(),
             'totalPriceInclBTW' => $this->checkoutWithDiscount->calculatePriceWithVat(),
         ]);
@@ -69,25 +69,26 @@ class CheckoutTest extends TestCase
     }
 
     /**
-     * Test out view with a discount.
+     * Test out view with no discount.
      */
-    public function testCheckoutWithoutDiscountView(): void
+    public function testCheckoutNoDiscountView(): void
     {
         $view = $this->view('checkout', [
-            'products' => $this->checkoutWithDiscount->getProducts(),
-            'totalPriceFull' => $this->checkoutWithDiscount->calculatePriceWithoutGlobalDiscount(),
-            'totalPrice' => $this->checkoutWithDiscount->calculatePriceWithoutVat(),
-            'btwAmount' => $this->checkoutWithDiscount->calculateVat(),
-            'globalDiscountPercentage' => $this->checkoutWithDiscount->getGlobalDiscountPercentage(),
-            'globalDiscountAmount' => $this->checkoutWithDiscount->calculateDiscount(),
-            'totalPriceInclBTW' => $this->checkoutWithDiscount->calculatePriceWithVat(),
+            'products' => $this->checkoutNoDiscount->getProducts(),
+            'totalPriceFull' => $this->checkoutNoDiscount->calculatePriceWithoutGlobalDiscount(),
+            'totalPrice' => $this->checkoutNoDiscount->calculatePriceWithoutVat(),
+            'btwAmount' => $this->checkoutNoDiscount->calculateVat(),
+            'globalDiscountPercentage' => $this->checkoutNoDiscount->getDisplayGlobalDiscountPercentage(),
+            'globalDiscountAmount' => $this->checkoutNoDiscount->calculateDiscount(),
+            'totalPriceInclBTW' => $this->checkoutNoDiscount->calculatePriceWithVat(),
         ]);
-        $view->assertSee('2818');
-        $view->assertSee('5%');
-        $view->assertSee('140.9');
-        $view->assertSee('2677.1');
-        $view->assertSee('562.191');
-        $view->assertSee('3239.291');
+        $view->assertSee('528');
+        $view->assertSee('20%');
+        $view->assertDontSee('Global discount percentage');
+        $view->assertDontSee('Global discount amount');
+        $view->assertSee('2108');
+        $view->assertSee('442.68');
+        $view->assertSee('2550.68');
     }
 
     /**

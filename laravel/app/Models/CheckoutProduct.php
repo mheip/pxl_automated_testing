@@ -35,6 +35,14 @@ class CheckoutProduct
     }
 
     /**
+     * Gets the discount percentage.
+     */
+    public function getDisplayDiscount(): string
+    {
+        return number_format($this->discount * 100, 0) . '%';
+    }
+
+    /**
      * Gets the product model.
      */
     public function getProduct(): Product

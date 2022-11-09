@@ -62,11 +62,23 @@ class Checkout
     }
 
     /**
+     * Returns the display global discount percentage.
+     */
+    public function getDisplayGlobalDiscountPercentage(): string
+    {
+        return number_format($this->globalDiscount * 100) . '%';
+    }
+
+    /**
      * Calculates the discount amount.
      */
     public function calculateDiscount(): float
     {
-        return (float) $this->calculatePriceWithoutGlobalDiscount() * $this->getGlobalDiscountPercentage();
+        if ($this->applyGlobalDiscount()) {
+            return $this->calculatePriceWithoutGlobalDiscount() * $this->getGlobalDiscountPercentage();
+        }
+
+        return 0;
     }
 
     /**
